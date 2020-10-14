@@ -1,0 +1,31 @@
+
+	<div class="container">
+		<div class="body">
+		<div class="row">
+			<div class="col-xs-3">
+				<h2>ジャンル検索</h2>
+			</div>
+			<div class="col-xs-9">
+				<div class="product-container">
+					<div>
+						<%= attachment_image_tag @product, :image, :fill, 200, 200, format: 'jpeg' %>
+					</div>
+					<div>
+						<p>
+							<%= @product.name %><br>
+							<%= @product.discription %><br>
+							<%= @product.price %>円
+						</p>
+					</div>
+				</div>
+
+				<%= form_with model:CartItem.new, url:public_cart_items_path(product_id: @product), local:true do |f| %>
+				<%= f.number_field :quantity_in_cart %>
+				<% f.hidden_field :product_id, value: @product.id %>
+
+				<%= f.submit "カートに入れる", class:"btn btn=primary" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

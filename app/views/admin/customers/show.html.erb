@@ -1,0 +1,56 @@
+<div class="body">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-2"></div>
+			<div class="col-xs-8">
+				<h2>
+				<%= @customer.last_name %><%= @customer.first_name %>さんの詳細
+				</h2>
+
+				<table>
+					<thead>
+						<tr>
+							<th>顧客ID</th>
+							<td><%= @customer.id %>
+								<% if @customer.members_status == true %>
+								<p>有効会員</p>
+								<% else %>
+								<p>無効会員</p>
+								<% end %>
+							</td>
+						</tr>
+						<tr>
+							<th>名前</th>
+							<td><%= @customer.last_name %><%= @customer.first_name %></td>
+						</tr>
+						<tr>
+							<th>カナ</th>
+							<td><%= @customer.last_name_kana %><%= @customer.first_name_kana %></td>
+						</tr>
+						<tr>
+							<th>郵便番号</th>
+							<td><%= @customer.postalcode %></td>
+						</tr>
+						<tr>
+							<th>住所</th>
+							<td><%= @customer.members_address %></td>
+						</tr>
+						<tr>
+							<th>電話番号</th>
+							<td><%= @customer.phone_number %></td>
+						</tr>
+						<tr>
+							<th>メールアドレス</th>
+							<td><%= @customer.email %></td>
+						</tr>
+					</tbody>
+				</table>
+				<div>
+					<%= link_to "編集する", edit_admin_customer_path, class:"btn btn-primary" %>
+					<%= link_to "注文履歴", admin_orders_path, class:"btn btn-primary" %>
+				</div>
+			</div>
+			<div class="col-xs-2"></div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,58 @@
+<div class="body">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-2"></div>
+			<div class="col-xs-8">
+				<h2>注文情報確認</h2>
+				<%= form_with model:@neworder, url:public_orders_path, local:true do |f| %>
+					<table class="table table-hover table-inverse" >
+						<thead>
+							<tr>
+								<th>商品</th>
+								<th>単価（税抜）</th>
+								<th>数量</th>
+								<th>小計</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% @cart_items.each do |item| %>
+							<tr>
+								<td><%= item.product.name %></td>
+								<td><%= item.product.price %></td>
+								<td><%= item.quantity_in_cart %></td>
+								<td><%= item.product.price.to_i * item.quantity_in_cart.to_i %></td>
+							</tr>
+							<% end %>
+						</tbody>
+					</table>
+
+					<table>
+						<tr>
+							<th>送料</th>
+							<td><%= @freight %></td>
+						</tr>
+						<tr>
+							<th>合計金額</th>
+							<td><%= @total %></td>
+						</tr>
+						<tr>
+							<th>請求金額</th>
+							<td><%= @total_fee %></td>
+						</tr>
+					</table>
+
+					<p>支払い方法</p>
+					<%= @neworder.payment_method %>
+					<%= f.hidden_field :payment_method, value:@neworder.payment_method %>
+					<p>お届け先</p>
+					<%= @address %><br>
+					<%= f.hidden_field :postalcode, value:@neworder.postalcode %>
+					<%= f.hidden_field :address, value:@neworder.address %>
+					<%= f.hidden_field :addressee, value:@neworder.addressee %>
+					<%= f.submit "購入を確定する", class:"btn btn-primary" %>
+				<% end %>
+			</div>
+			<div class="col-xs-2"></div>
+		</div>
+	</div>
+</div>

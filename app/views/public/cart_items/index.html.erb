@@ -1,0 +1,53 @@
+<div class="body">
+	<div class="container">
+		<div class="row">
+			<div class="col-xs-1"></div>
+			<div class="col-xs-10">
+				<h2>ショッピングカート</h2>
+				<div class="text-right">
+					<%= button_to "カートを空にする", public_cart_items_all_destroy_path, method: :delete %>
+				</div>
+				<table class="table table-hover table-inverse" >
+					<thead>
+						<tr>
+							<th>商品</th>
+							<th>単価（税抜）</th>
+							<th>数量</th>
+							<th>小計</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @order_products.each do |product| %>
+						<tr>
+							<td><%= product.product.name %></td>
+							<td><%= product.product.price %>円</td>
+							<td>
+							<%= form_with model:product, url:public_cart_item_path(product), local:true do |f| %>
+
+								<%= f.text_field :quantity_in_cart, :size=>"1" %>
+
+								<%= f.submit '個数を変更', class:"btn btn-primay" %>
+							<% end %>
+							</td>
+							<td><%= product.product.price.to_i * product.quantity_in_cart.to_i %>円</td>
+							<td><%= link_to "削除する", public_cart_item_path(product), class:"btn btn-danger", method: :delete %></td>
+						</tr>
+						<% end %>
+					</tbody>
+				</table>
+				<div>
+					<%= link_to "買い物を続ける", products_path %>
+				</div>
+				<div class="text-right">
+					<p>合計金額</p>
+					<p><%= @total %>円</p>
+				</div>
+				<div class="text-center">
+					<%= link_to "購入手続きへ", new_public_order_path, class:"btn btn-success"  %>
+				</div>
+			</div>
+			<div class="col-xs-1"></div>
+		</div>
+	</div>
+</div>
